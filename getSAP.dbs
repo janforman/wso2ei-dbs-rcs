@@ -1,0 +1,49 @@
+<data name="getSAP" serviceNamespace="positions" transports="http">
+   <config enableOData="false" id="cassandra">
+      <property name="cassandraServers">10.160.149.35 10.160.149.36 10.160.149.37</property>
+      <property name="keyspace">nis</property>
+      <property name="clusterName">hzspk</property>
+      <property name="consistencyLevel">TWO</property>
+   </config>
+   <query id="status" useConfig="cassandra">
+      <expression>SELECT COUNT(1) as count FROM nis.positions;</expression>
+      <result element="status" rowName="positions">
+         <element column="count" name="count" xsdType="integer"/>
+      </result>
+   </query>
+   <query id="read" useConfig="cassandra">
+      <expression>SELECT idsap,kodslozka,volaciznak,casaktualizace,rychlost,lat,lon FROM nis.positions WHERE bucket = :bucket AND casaktualizace &gt; :from AND casaktualizace &lt; :to LIMIT 10000;</expression>
+      <result element="status" rowName="sap">
+         <element column="idsap" name="id" xsdType="string"/>
+         <element column="kodslozka" name="kod" xsdType="string"/>
+         <element column="volaciznak" name="znak" xsdType="string"/>
+         <element column="casaktualizace" name="cas" xsdType="string"/>
+         <element column="rychlost" name="rych" xsdType="string"/>
+         <element column="lat" name="lat" xsdType="string"/>
+         <element column="lon" name="lon" xsdType="string"/>
+      </result>
+      <param name="from" sqlType="INTEGER"/>
+      <param name="to" sqlType="INTEGER"/>
+      <param name="bucket" sqlType="INTEGER"/>
+   </query>
+   <operation name="get" returnRequestStatus="true">
+      <call-query href="read">
+         <with-param name="from" query-param="from"/>
+         <with-param name="to" query-param="to"/>
+         <with-param name="bucket" query-param="bucket"/>
+      </call-query>
+   </operation>
+   <operation name="status" returnRequestStatus="true">
+      <call-query href="status"/>
+   </operation>
+   <resource method="GET" path="/status">
+      <call-query href="status"/>
+   </resource>
+   <resource method="GET" path="/get">
+      <call-query href="read">
+         <with-param name="from" query-param="from"/>
+         <with-param name="to" query-param="to"/>
+         <with-param name="bucket" query-param="bucket"/>
+      </call-query>
+   </resource>
+</data>

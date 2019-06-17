@@ -1,0 +1,22 @@
+<data name="getTLAKOVELAHVE" transports="http">
+   <config enableOData="false" id="rcs">
+      <property name="carbon_datasource_name">RCS</property>
+   </config>
+   <query id="query" useConfig="rcs">
+      <sql>SELECT a.K_VP_CHTS,a.N_VP_CHTS,b.EVID_CISLO,b.RFID_TAG,c.K_JPO FROM VP_CHTS a JOIN VP_CHTS_DSP b ON a.K_VP_CHTS = b.K_VP_CHTS JOIN H_VP_CHTS c ON a.K_VP_CHTS = c.K_VP_CHTS WHERE KC_TPO IN (501141, 501145, 501144, 8) AND a.X_VP_CHTS = 1 AND c.X_H_VP_CHTS = 1 AND b.RFID_TAG  IS NOT NULL</sql>
+      <result element="list" rowName="lahev">
+         <element column="K_VP_CHTS" name="id" xsdType="string"/>
+         <element column="N_VP_CHTS" name="jmeno" xsdType="string"/>
+         <element column="EVID_CISLO" name="ecislo" xsdType="string"/>
+         <element column="RFID_TAG" name="rfid" xsdType="string"/>
+         <element column="K_JPO" name="jpo" xsdType="string"/>
+         <element name="objem" xsdType="number"/>
+      </result>
+   </query>
+   <operation name="get">
+      <call-query href="query"/>
+   </operation>
+   <resource method="GET" path="/">
+      <call-query href="query"/>
+   </resource>
+</data>

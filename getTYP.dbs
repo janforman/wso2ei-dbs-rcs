@@ -1,0 +1,21 @@
+<data name="getTYP" transports="http">
+   <description>Exportuj TYP</description>
+   <config enableOData="false" id="rcs">
+      <property name="carbon_datasource_name">RCS</property>
+   </config>
+   <query id="query" useConfig="rcs">
+      <sql>SELECT a.NC_U_TYP,a.KC_U_TYP,b.NC_U_PODTYP,b.KC_U_PODTYP FROM ISV_SYSTEM.C_U_TYP a JOIN ISV_SYSTEM.C_U_PODTYP b ON a.KC_U_TYP = b.KC_U_TYP WHERE a.XC_U_TYP = 1 AND b.XC_U_PODTYP = 1 ORDER BY a.NC_U_TYP</sql>
+      <result element="list" rowName="typ">
+         <element column="NC_U_TYP" name="typ_nazev" xsdType="string"/>
+         <element column="KC_U_TYP" name="typ_kod" xsdType="string"/>
+         <element column="NC_U_PODTYP" name="podtyp_nazev" xsdType="string"/>
+         <element column="KC_U_PODTYP" name="podtyp_kod" xsdType="string"/>
+      </result>
+   </query>
+   <operation name="get">
+      <call-query href="query"/>
+   </operation>
+   <resource method="GET" path="/">
+      <call-query href="query"/>
+   </resource>
+</data>

@@ -1,0 +1,20 @@
+<data name="getOBVODY" transports="http">
+   <description>Exportuj obvody</description>
+   <config enableOData="false" id="rcs">
+      <property name="carbon_datasource_name">RCS</property>
+   </config>
+   <query id="query" useConfig="rcs">
+      <sql>SELECT b.K_COBCE as K_COBCE,CONCAT ('32', SUBSTR(a.K_JPO, 4, 5)) AS K_JPO,a.PORADI_PPL as PORADI FROM STP_PPL a JOIN PPL_HZS b ON a.k_ppl_hzs = b.k_ppl_hzs WHERE a.STUPEN_PPL = 1 AND b.KC_PPL_STAV = 4 AND a.K_JPO LIKE '320_0__' AND b.K_COBCE IS NOT NULL ORDER BY b.K_COBCE,A.PORADI_PPL</sql>
+      <result element="list" rowName="cobce">
+         <element column="K_COBCE" name="COBCE_KOD" xsdType="integer"/>
+         <element column="K_JPO" name="K_JPO" xsdType="integer"/>
+         <element column="PORADI" name="PORADI" xsdType="integer"/>
+      </result>
+   </query>
+   <operation name="get">
+      <call-query href="query"/>
+   </operation>
+   <resource method="GET" path="/">
+      <call-query href="query"/>
+   </resource>
+</data>

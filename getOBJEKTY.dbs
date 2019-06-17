@@ -1,0 +1,22 @@
+<data name="getOBJEKTY" transports="http">
+   <description>Exportuj objekty</description>
+   <config enableOData="false" id="rcs">
+      <property name="carbon_datasource_name">RCS</property>
+   </config>
+   <query id="query" useConfig="rcs">
+      <sql>SELECT C.N_O_PTS,CONCAT('-',c.SHAPE.SDO_POINT.X) as X, CONCAT('-',c.SHAPE.SDO_POINT.Y) as Y,a.KC_LBD_VYZNAM as VYZNAM,a.K_LBD_OBJEKT as ID FROM ISV_LBD.LBD_OBJEKT a JOIN ISV_MAIN.O_PTS_LBD b ON a.K_LBD_OBJEKT = b.K_LBD_OBJEKT JOIN ISV_MAIN.O_PTS c ON b.K_O_PTS = c.K_O_PTS WHERE a.X_LBD_OBJEKT = 1 AND c.X_O_PTS = 1 AND a.KC_LBD_VYZNAM &gt;= 17 AND a.KC_LBD_VYZNAM &lt;= 22 AND a.KC_LBD_OBJEKT_TYP = 10</sql>
+      <result element="list" rowName="objekt">
+         <element column="N_O_PTS" name="nazev" xsdType="string"/>
+         <element column="Y" name="jtsk_x" xsdType="string"/>
+         <element column="X" name="jtsk_y" xsdType="string"/>
+         <element column="VYZNAM" name="typ" xsdType="string"/>
+         <element column="ID" name="k" xsdType="string"/>
+      </result>
+   </query>
+   <operation name="get">
+      <call-query href="query"/>
+   </operation>
+   <resource method="GET" path="/">
+      <call-query href="query"/>
+   </resource>
+</data>

@@ -1,0 +1,21 @@
+<data name="getPPL" transports="http">
+   <description>Exportuj nastavení poplachových plánů&#xd;                                </description>
+   <config enableOData="false" id="rcs">
+      <property name="carbon_datasource_name">RCS</property>
+   </config>
+   <query id="query" useConfig="rcs">
+      <sql>SELECT b.K_COBCE,c.E_JPO AS K_JPO,a.STUPEN_PPL,a.PORADI_PPL FROM STP_PPL a JOIN PPL_HZS b ON a.K_PPL_HZS = b.K_PPL_HZS JOIN JPO c ON a.K_JPO = c.K_JPO WHERE b.K_COBCE IS NOT NULL AND b.KC_PPL_STAV = 4 AND a.K_JPO &lt;&gt; 0</sql>
+      <result element="list" rowName="ppl">
+         <element column="K_COBCE" name="cobce" xsdType="integer"/>
+         <element column="K_JPO" name="jpo" xsdType="string"/>
+         <element column="STUPEN_PPL" name="stupen" xsdType="integer"/>
+         <element column="PORADI_PPL" name="poradi" xsdType="integer"/>
+      </result>
+   </query>
+   <operation name="get">
+      <call-query href="query"/>
+   </operation>
+   <resource method="GET" path="/">
+      <call-query href="query"/>
+   </resource>
+</data>

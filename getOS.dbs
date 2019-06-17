@@ -1,0 +1,29 @@
+<data name="getOS" transports="http">
+   <config enableOData="false" id="rcs">
+      <property name="carbon_datasource_name">RCS</property>
+   </config>
+   <query id="query" useConfig="rcs">
+      <sql>SELECT a.K_OS,a.CIS_OSV,a.ROK_OSV,(SELECT JMENO FROM H_OS WHERE K_OS = a.K_OS AND ROWNUM = 1 AND XH_OS = 1) AS jmeno,(SELECT PRIJMENI FROM H_OS WHERE K_OS = a.K_OS AND ROWNUM = 1 AND XH_OS = 1) AS prijmeni, (SELECT CISLO FROM TELEFON_OS WHERE K_OS = a.K_OS AND ROWNUM = 1) AS tel,(SELECT N_EL_ADR FROM OS_EL_ADR WHERE K_OS = a.K_OS AND ROWNUM = 1) AS mail,(SELECT TO_CHAR (DAT_NAR, 'YYYY') FROM OS WHERE K_OS = a.K_OS AND ROWNUM = 1) AS nar FROM JPO_OS a JOIN OS b ON a.K_OS = b.K_OS WHERE a.X_JPO_OS = 1 AND b.X_OS = 1 AND K_JPO = ?</sql>
+      <result element="list" rowName="osoba">
+         <element column="K_OS" name="id" xsdType="number"/>
+         <element column="JMENO" name="jmeno" xsdType="string"/>
+         <element column="PRIJMENI" name="prijmeni" xsdType="string"/>
+         <element column="NAR" name="nar" xsdType="string"/>
+         <element column="TEL" name="tel" xsdType="string"/>
+         <element column="MAIL" name="mail" xsdType="string"/>
+         <element column="CIS_OSV" name="cislo_osvedceni" xsdType="string"/>
+         <element column="ROK_OSV" name="rok_osvedceni" xsdType="string"/>
+      </result>
+      <param name="evcj" sqlType="STRING"/>
+   </query>
+   <operation name="get">
+      <call-query href="query">
+         <with-param name="evcj" query-param="evcj"/>
+      </call-query>
+   </operation>
+   <resource method="GET" path="/">
+      <call-query href="query">
+         <with-param name="evcj" query-param="evcj"/>
+      </call-query>
+   </resource>
+</data>

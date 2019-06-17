@@ -1,0 +1,44 @@
+<data enableBatchRequests="true" name="postSAP" serviceNamespace="positions" transports="http">
+   <description>Ulož polohu jednotek do ScyllaDB         </description>
+   <config enableOData="false" id="cassandra">
+      <property name="cassandraServers">10.160.149.35 10.160.149.36 10.160.149.37</property>
+      <property name="keyspace">nis</property>
+      <property name="clusterName">hzspk</property>
+      <property name="consistencyLevel">TWO</property>
+   </config>
+   <query id="save" useConfig="cassandra">
+      <expression>INSERT INTO nis.positions (bucket,idsap,kodslozka,volaciznak,casaktualizace,rychlost,lat,lon) VALUES (:bucket,:idSap,:kodSlozka,:volaciZnak,:casAktualizace,:rychlost,:lat,:lon);</expression>
+      <param name="bucket" sqlType="INTEGER"/>
+      <param name="idSap" sqlType="STRING"/>
+      <param name="kodSlozka" sqlType="STRING"/>
+      <param name="rychlost" sqlType="INTEGER"/>
+      <param name="volaciZnak" sqlType="STRING"/>
+      <param name="casAktualizace" sqlType="INTEGER"/>
+      <param name="lat" sqlType="DOUBLE"/>
+      <param name="lon" sqlType="DOUBLE"/>
+   </query>
+   <operation name="savebatch" returnRequestStatus="true">
+      <call-query href="save">
+         <with-param name="bucket" query-param="bucket"/>
+         <with-param name="idSap" query-param="idSap"/>
+         <with-param name="kodSlozka" query-param="kodSlozka"/>
+         <with-param name="rychlost" query-param="rychlost"/>
+         <with-param name="volaciZnak" query-param="volaciZnak"/>
+         <with-param name="casAktualizace" query-param="casAktualizace"/>
+         <with-param name="lat" query-param="lat"/>
+         <with-param name="lon" query-param="lon"/>
+      </call-query>
+   </operation>
+   <resource method="POST" path="/">
+      <call-query href="save">
+         <with-param name="bucket" query-param="bucket"/>
+         <with-param name="idSap" query-param="idSap"/>
+         <with-param name="kodSlozka" query-param="kodSlozka"/>
+         <with-param name="rychlost" query-param="rychlost"/>
+         <with-param name="volaciZnak" query-param="volaciZnak"/>
+         <with-param name="casAktualizace" query-param="casAktualizace"/>
+         <with-param name="lat" query-param="lat"/>
+         <with-param name="lon" query-param="lon"/>
+      </call-query>
+   </resource>
+</data>

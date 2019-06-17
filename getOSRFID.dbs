@@ -1,0 +1,18 @@
+<data name="getOSRFID" transports="http">
+   <config enableOData="false" id="rcs">
+      <property name="carbon_datasource_name">RCS</property>
+   </config>
+   <query id="query" useConfig="rcs">
+      <sql>SELECT (SELECT K_OS FROM H_VP_CHTS WHERE H_VP_CHTS.K_VP_CHTS = VP_CHTS_DSP.K_VP_CHTS AND ROWNUM = 1) AS K_OS,RFID_TAG FROM VP_CHTS_DSP WHERE RFID_TAG IS NOT NULL</sql>
+      <result element="list" rowName="osxrfid">
+         <element column="K_OS" name="id" xsdType="string"/>
+         <element column="RFID_TAG" name="rfid" xsdType="string"/>
+      </result>
+   </query>
+   <operation name="get">
+      <call-query href="query"/>
+   </operation>
+   <resource method="GET" path="/">
+      <call-query href="query"/>
+   </resource>
+</data>
