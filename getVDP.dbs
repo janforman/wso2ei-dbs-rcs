@@ -3,12 +3,12 @@
       <property name="carbon_datasource_name">RCS</property>
    </config>
    <query id="query" useConfig="rcs">
-      <sql>SELECT K_VP_CHTS, N_VP_CHTS,(SELECT EVID_CISLO FROM VP_CHTS_DSP WHERE VP_CHTS_DSP.K_VP_CHTS = VP_CHTS.K_VP_CHTS) AS EVID_CISLO,(SELECT RFID_TAG FROM VP_CHTS_DSP WHERE VP_CHTS_DSP.K_VP_CHTS = VP_CHTS.K_VP_CHTS) AS RFID_TAG,(SELECT K_JPO FROM H_VP_CHTS WHERE H_VP_CHTS.K_VP_CHTS = VP_CHTS.K_VP_CHTS AND X_H_VP_CHTS = 1 AND ROWNUM = 1) AS JPO FROM VP_CHTS WHERE KC_TPO IN (500652,500655) AND X_VP_CHTS = 1</sql>
+      <sql>SELECT A.K_VP_CHTS, A.N_VP_CHTS, B.EVID_CISLO AS ECISLO, B.RFID_TAG, C.K_JPO AS JPO FROM VP_CHTS A JOIN VP_CHTS_DSP B ON A.K_VP_CHTS = B.K_VP_CHTS JOIN H_VP_CHTS C ON A.K_VP_CHTS = C.K_VP_CHTS WHERE A.KC_TPO IN (500652,500655) AND A.X_VP_CHTS = 1 AND C.X_H_VP_CHTS = 1 AND B.RFID_TAG IS NOT NULL</sql>
       <result element="list" rowName="vdp">
          <element column="K_VP_CHTS" name="id" xsdType="string"/>
          <element column="N_VP_CHTS" name="jmeno" xsdType="string"/>
          <element column="JPO" name="jpo" xsdType="string"/>
-         <element column="EVID_CISLO" name="ecislo" xsdType="string"/>
+         <element column="ECISLO" name="ecislo" xsdType="string"/>
          <element column="RFID_TAG" name="rfid" xsdType="string"/>
       </result>
    </query>
