@@ -3,12 +3,12 @@
       <property name="carbon_datasource_name">RCS</property>
    </config>
    <query id="query" useConfig="rcs">
-      <sql>SELECT K_TPO,KC_TPO,(SELECT KMEN_JPO FROM H_TPO WHERE H_TPO.K_TPO = TPO.K_TPO AND XH_TPO = 1 AND ROWNUM = 1) AS K_JPO,(SELECT N_TPO FROM H_TPO WHERE H_TPO.K_TPO = TPO.K_TPO AND XH_TPO = 1 AND ROWNUM = 1) N_TPO_ALIAS,(SELECT SPZ FROM H_TPO WHERE H_TPO.K_TPO = TPO.K_TPO AND XH_TPO = 1 AND ROWNUM = 1) AS SPZ FROM TPO WHERE KC_TPO IN (157,510111,510112,510113,510114,510341,510312,510313,510314,510331,510332,510241,510351,510322,510321,510324,510311,510342,510221,510221,510121,510131,510136,510137,510138,510132,510133,510134,510139,510124) AND X_TPO = 1 AND Q_TPO IS NULL</sql>
+      <sql>SELECT A.K_TPO,KC_TPO,B.KMEN_JPO AS K_JPO, B.N_TPO,B.SPZ FROM TPO A JOIN H_TPO B ON A.K_TPO = B.K_TPO WHERE A.X_TPO = 1 AND A.Q_TPO IS NULL AND B.XH_TPO = 1 AND B.QH_TPO IS NULL AND SPZ IS NOT NULL</sql>
       <result element="list" rowName="vozidlo">
          <element column="K_TPO" name="k" xsdType="string"/>
          <element column="KC_TPO" name="typ" xsdType="string"/>
          <element column="K_JPO" name="evcj" xsdType="string"/>
-         <element column="N_TPO_ALIAS" name="popis" xsdType="string"/>
+         <element column="N_TPO" name="popis" xsdType="string"/>
          <element column="SPZ" name="spz" xsdType="string"/>
       </result>
    </query>

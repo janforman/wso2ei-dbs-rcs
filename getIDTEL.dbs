@@ -1,0 +1,19 @@
+<data name="getIDTEL" transports="http">
+   <config enableOData="false" id="rcs">
+      <property name="carbon_datasource_name">RCS</property>
+   </config>
+   <query id="query" useConfig="rcs">
+      <sql>SELECT A.K_OS,A.E_OS, CISLO_REG FROM H_OS A JOIN TELEFON_OS B ON A.K_OS = B.K_OS WHERE KC_ATC = 11 AND XH_OS = 1 AND E_OS IS NOT NULL AND E_OS &gt; 1000 AND CISLO_REG &gt; 1000 </sql>
+      <result element="list" rowName="os">
+         <element column="K_OS" name="k" xsdType="number"/>
+         <element column="E_OS" name="e" xsdType="number"/>
+         <element column="CISLO_REG" name="tel" xsdType="string"/>
+      </result>
+   </query>
+   <operation name="get">
+      <call-query href="query"/>
+   </operation>
+   <resource method="GET" path="/">
+      <call-query href="query"/>
+   </resource>
+</data>

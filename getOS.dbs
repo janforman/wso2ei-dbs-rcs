@@ -1,4 +1,4 @@
-<data name="getOS" transports="http">
+<data name="getJSDHOS" transports="http">
    <config enableOData="false" id="rcs">
       <property name="carbon_datasource_name">RCS</property>
    </config>
