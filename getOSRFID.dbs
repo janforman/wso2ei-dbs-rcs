@@ -3,7 +3,7 @@
       <property name="carbon_datasource_name">RCS</property>
    </config>
    <query id="query" useConfig="rcs">
-      <sql>SELECT B.K_OS,A.RFID_TAG FROM VP_CHTS_DSP A JOIN H_VP_CHTS B ON B.KH_VP_CHTS = A.K_VP_CHTS WHERE A.RFID_TAG IS NOT NULL AND B.K_OS IS NOT NULL</sql>
+      <sql>SELECT B.K_OS,A.RFID_TAG FROM VP_CHTS_DSP A JOIN H_VP_CHTS B ON B.K_VP_CHTS = A.K_VP_CHTS WHERE B.X_H_VP_CHTS = 1 AND A.RFID_TAG IS NOT NULL AND B.K_OS IS NOT NULL</sql>
       <result element="list" rowName="osxrfid">
          <element column="K_OS" name="id" xsdType="string"/>
          <element column="RFID_TAG" name="rfid" xsdType="string"/>
