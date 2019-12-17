@@ -1,0 +1,20 @@
+<data name="getTYPTECHNIKA" transports="http">
+   <description>Exportuj TYP</description>
+   <config enableOData="false" id="rcs">
+      <property name="carbon_datasource_name">RCS</property>
+   </config>
+   <query id="query" useConfig="rcs">
+      <sql>SELECT KC_TPO,NC_TPO,ZC_TPO FROM ISV_CSC.C_TPO</sql>
+      <result element="list" rowName="typ">
+         <element column="NC_TPO" name="typ_nazev" xsdType="string"/>
+         <element column="KC_TPO" name="typ_kod" xsdType="string"/>
+         <element column="ZC_TPO" name="typ_vozidlo" xsdType="string"/>
+      </result>
+   </query>
+   <operation name="get">
+      <call-query href="query"/>
+   </operation>
+   <resource method="GET" path="/">
+      <call-query href="query"/>
+   </resource>
+</data>
