@@ -1,5 +1,4 @@
 <data name="getTYP" transports="http">
-   <description>Exportuj TYP</description>
    <config enableOData="false" id="rcs">
       <property name="carbon_datasource_name">RCS</property>
    </config>

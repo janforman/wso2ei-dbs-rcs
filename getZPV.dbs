@@ -1,5 +1,4 @@
 <data name="getZPV" transports="http">
-   <description>Exportuj objekty</description>
    <config enableOData="false" id="rcs">
       <property name="carbon_datasource_name">RCS</property>
    </config>

@@ -1,5 +1,4 @@
 <data name="getJPO" transports="http">
-   <description>Exportuj JPO</description>
    <config enableOData="false" id="rcs">
       <property name="carbon_datasource_name">RCS</property>
    </config>

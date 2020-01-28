@@ -1,5 +1,4 @@
 <data name="getPPL" transports="http">
-   <description>Exportuj nastavení poplachových plánů&#xd;                                </description>
    <config enableOData="false" id="rcs">
       <property name="carbon_datasource_name">RCS</property>
    </config>

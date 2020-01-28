@@ -1,5 +1,4 @@
 <data enableBatchRequests="true" name="postSAP" serviceNamespace="positions" transports="http">
-   <description>Ulož polohu jednotek do ScyllaDB         </description>
    <config enableOData="false" id="cassandra">
       <property name="cassandraServers">10.160.149.35 10.160.149.36 10.160.149.37</property>
       <property name="keyspace">nis</property>

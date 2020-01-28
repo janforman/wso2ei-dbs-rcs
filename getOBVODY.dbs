@@ -1,5 +1,4 @@
 <data name="getOBVODY" transports="http">
-   <description>Exportuj obvody</description>
    <config enableOData="false" id="rcs">
       <property name="carbon_datasource_name">RCS</property>
    </config>
