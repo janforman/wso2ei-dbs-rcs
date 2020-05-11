@@ -3,7 +3,7 @@
       <property name="carbon_datasource_name">RCS</property>
    </config>
    <query id="query" useConfig="rcs">
-      <sql>SELECT A.K_TPO, A.KC_TPO, B.AKT_JPO AS K_JPO, B.N_TPO, B.SPZ FROM TPO A JOIN H_TPO B ON A.K_TPO = B.K_TPO JOIN ISV_CSC.C_TPO C ON A.KC_TPO = C.KC_TPO WHERE A.X_TPO = 1 AND A.Q_TPO IS NULL AND B.XH_TPO = 1 AND B.QH_TPO IS NULL AND SPZ IS NOT NULL AND ZC_TPO IS NOT NULL</sql>
+      <sql>SELECT A.K_TPO, A.KC_TPO, B.AKT_JPO AS K_JPO, B.N_TPO, B.SPZ FROM TPO A JOIN H_TPO B ON A.K_TPO = B.K_TPO JOIN ISV_SYSTEM.C_TPO C ON A.KC_TPO = C.KC_TPO WHERE A.X_TPO = 1 AND A.Q_TPO IS NULL AND B.XH_TPO = 1 AND B.QH_TPO IS NULL AND SPZ IS NOT NULL AND ZC_TPO IS NOT NULL</sql>
       <result element="list" rowName="vozidlo">
          <element column="K_TPO" name="k" xsdType="string"/>
          <element column="KC_TPO" name="typ" xsdType="string"/>
