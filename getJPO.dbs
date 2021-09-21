@@ -3,7 +3,7 @@
       <property name="carbon_datasource_name">RCS</property>
    </config>
    <query id="query" useConfig="rcs">
-      <sql>SELECT a.K_JPO as K,a.E_JPO as EVCJ,b.N_JPO,c.ZC_JPO,d.N_KAT_JPO,d.POC_ORG_VYJ,CONCAT('-',a.SHAPE.SDO_POINT.x) as Y,CONCAT('-',a.SHAPE.SDO_POINT.y) as X FROM JPO a RIGHT JOIN H_JPO b ON a.K_JPO = b.K_JPO JOIN ISV_SYSTEM.C_JPO c ON b.KC_JPO = c.KC_JPO JOIN ISV_SYSTEM.C_KAT_JPO d ON b.KAT_JPO = d.K_KAT_JPO  WHERE a.X_JPO = 1 AND b.XH_JPO = 1 AND a.SHAPE IS NOT NULL</sql>
+      <sql>SELECT a.K_JPO as K,a.E_JPO as EVCJ,b.N_JPO,c.ZC_JPO,d.N_KAT_JPO,d.POC_ORG_VYJ,b.ZARAZENI_PP,CONCAT('-',a.SHAPE.SDO_POINT.x) as Y,CONCAT('-',a.SHAPE.SDO_POINT.y) as X FROM JPO a RIGHT JOIN H_JPO b ON a.K_JPO = b.K_JPO JOIN ISV_SYSTEM.C_JPO c ON b.KC_JPO = c.KC_JPO JOIN ISV_SYSTEM.C_KAT_JPO d ON b.KAT_JPO = d.K_KAT_JPO  WHERE a.X_JPO = 1 AND b.XH_JPO = 1 AND a.SHAPE IS NOT NULL</sql>
       <result element="list" rowName="jpo">
          <element column="K" name="k" xsdType="integer"/>
          <element column="EVCJ" name="evcj" xsdType="string"/>
@@ -11,6 +11,7 @@
          <element column="ZC_JPO" name="kat" xsdType="string"/>
          <element column="N_KAT_JPO" name="typ" xsdType="string"/>
          <element column="POC_ORG_VYJ" name="vyjezdy" xsdType="integer"/>
+         <element column="ZARAZENI_PP" name="pp" xsdType="integer"/>
          <element column="X" name="jtsk_x" xsdType="integer"/>
          <element column="Y" name="jtsk_y" xsdType="integer"/>
       </result>
