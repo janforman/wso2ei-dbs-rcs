@@ -3,7 +3,7 @@
       <property name="carbon_datasource_name">RCS</property>
    </config>
    <query id="query" useConfig="rcs">
-      <sql>SELECT N_ZDROJ_PV,KC_ZDROJ_PV,CONCAT('-',a.SHAPE.SDO_POINT.X) as X,CONCAT('-',a.SHAPE.SDO_POINT.Y) as Y,K_ZDROJ_PV as ID FROM ZDROJ_PV a WHERE X_ZDROJ_PV = 1</sql>
+      <sql>SELECT N_ZDROJ_PV,KC_ZDROJ_PV,CONCAT('-',a.SHAPE.SDO_POINT.X) as X,CONCAT('-',a.SHAPE.SDO_POINT.Y) as Y,K_ZDROJ_PV as ID FROM ZDROJ_PV a WHERE X_ZDROJ_PV = 1 AND a.SHAPE.SDO_POINT.X > 0</sql>
       <result element="list" rowName="zpv">
          <element column="N_ZDROJ_PV" name="nazev" xsdType="string"/>
          <element column="KC_ZDROJ_PV" name="typ" xsdType="string"/>
