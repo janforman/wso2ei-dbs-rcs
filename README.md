@@ -1,4 +1,4 @@
-# WSO MicroIntegrator DBS files
+# WSO2 MicroIntegrator DBS files
 
 curl example
 <pre>
