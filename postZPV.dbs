@@ -3,7 +3,7 @@
       <property name="carbon_datasource_name">OOB</property>
    </config>
    <query id="zpv" useConfig="oob">
-      <sql>INSERT INTO rcs_zdrojevody ("objectid","n_zdroj_pv","kc_zdroj_pv","x","y") VALUES (:k,:nazev,:typ,:jtsk_x,:jtsk_y);</sql>
+      <sql>INSERT INTO rcs_zdrojevody ("objectid","n_zdroj_pv","typ","x","y") VALUES (:k,:nazev,:typ,:jtsk_x,:jtsk_y);</sql>
       <param name="k" paramType="SCALAR" sqlType="NUMERIC"/>
       <param name="nazev" paramType="SCALAR" sqlType="STRING"/>
       <param name="typ" paramType="SCALAR" sqlType="NUMERIC"/>
