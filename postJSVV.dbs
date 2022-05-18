@@ -1,0 +1,48 @@
+<data enableBatchRequests="true" name="postJSVV" transports="http local">
+   <config enableOData="false" id="oob">
+      <property name="carbon_datasource_name">OOB</property>
+   </config>
+   <query id="jsvv" useConfig="oob">
+      <sql>INSERT INTO spark_jsvv (objectid,ec,obec,okres,majitel,typ,druh,vykon,wgs84_n,wgs84_e,prijimac_n,prijimac_t) VALUES (:id,:ec,:obec,:okres,:majitel,:typ,:druh,:vykon,:wgs84_n,:wgs84_e,:prijimac_nazev,:prijimac_typ);</sql>
+      <param name="id" paramType="SCALAR" sqlType="integer"/>
+      <param name="ec" paramType="SCALAR" sqlType="string"/>
+      <param name="obec" paramType="SCALAR" sqlType="string"/>
+      <param name="okres" paramType="SCALAR" sqlType="string"/>
+      <param name="majitel" paramType="SCALAR" sqlType="string"/>
+      <param name="typ" paramType="SCALAR" sqlType="string"/>
+      <param name="druh" paramType="SCALAR" sqlType="string"/>
+      <param name="vykon" paramType="SCALAR" sqlType="string"/>
+      <param name="wgs84_n" paramType="SCALAR" sqlType="double"/>
+      <param name="wgs84_e" paramType="SCALAR" sqlType="double"/>
+      <param name="prijimac_nazev" paramType="SCALAR" sqlType="string"/>
+      <param name="prijimac_typ" paramType="SCALAR" sqlType="string"/>
+   </query>
+   <query id="updatexy" useConfig="oob">
+      <sql>UPDATE spark_jsvv SET shape = ST_SetSRID(ST_MakePoint("wgs84_e", "wgs84_n"), 4326);</sql>
+   </query>
+   <query id="remove" useConfig="oob">
+      <sql>DELETE FROM spark_jsvv;</sql>
+   </query>
+   <resource method="GET" path="/updatexy">
+      <call-query href="updatexy"/>
+   </resource>
+   <resource method="GET" path="/remove">
+      <call-query href="remove"/>
+   </resource>
+   <resource method="POST" path="/post">
+      <call-query href="jsvv">
+      <with-param name="id" query-param="id"/>
+      <with-param name="ec" query-param="ec"/>
+      <with-param name="obec" query-param="obec"/>
+      <with-param name="okres" query-param="okres"/>
+      <with-param name="majitel" query-param="majitel"/>
+      <with-param name="typ" query-param="typ"/>
+      <with-param name="druh" query-param="druh"/>
+      <with-param name="vykon" query-param="vykon"/>
+      <with-param name="wgs84_n" query-param="wgs84_n"/>
+      <with-param name="wgs84_e" query-param="wgs84_e"/>
+      <with-param name="prijimac_nazev" query-param="prijimac_nazev"/>
+      <with-param name="prijimac_typ" query-param="prijimac_typ"/>
+      </call-query>
+   </resource>
+</data>
