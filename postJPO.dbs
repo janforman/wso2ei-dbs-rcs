@@ -1,0 +1,42 @@
+<data enableBatchRequests="true" name="postJPO" transports="http local">
+   <config enableOData="false" id="oob">
+      <property name="carbon_datasource_name">OOB</property>
+   </config>
+   <query id="jpo" useConfig="oob">
+      <sql>INSERT INTO rcs_jpo ("objectid","evcj","nazev","kat","typ","vyjezdy","pp","jtsk_x","jtsk_y") VALUES (:k,:evcj,:nazev,:kat,:typ,:vyjezdy,:pp,:jtsk_x,:jtsk_y);</sql>
+      <param name="k" paramType="SCALAR" sqlType="NUMERIC"/>
+      <param name="evcj" paramType="SCALAR" sqlType="STRING"/>
+      <param name="nazev" paramType="SCALAR" sqlType="STRING"/>
+      <param name="kat" paramType="SCALAR" sqlType="STRING"/>
+      <param name="typ" paramType="SCALAR" sqlType="STRING"/>
+      <param name="vyjezdy" paramType="SCALAR" sqlType="NUMERIC"/>
+      <param name="pp" paramType="SCALAR" sqlType="STRING"/>
+      <param name="jtsk_x" paramType="SCALAR" sqlType="NUMERIC"/>
+      <param name="jtsk_y" paramType="SCALAR" sqlType="NUMERIC"/>
+   </query>
+   <query id="updatexy" useConfig="oob">
+      <sql>UPDATE rcs_jpo SET shape = ST_Transform(ST_SetSRID(ST_MakePoint("jtsk_x", "jtsk_y"), 5514),4326);</sql>
+   </query>
+   <query id="remove" useConfig="oob">
+      <sql>DELETE FROM rcs_jpo;</sql>
+   </query>
+   <resource method="GET" path="/updatexy">
+      <call-query href="updatexy"/>
+   </resource>
+   <resource method="GET" path="/remove">
+      <call-query href="remove"/>
+   </resource>
+   <resource method="POST" path="/post">
+      <call-query href="jpo">
+      <with-param name="k" query-param="k"/>
+      <with-param name="evcj" query-param="evcj"/>
+      <with-param name="nazev" query-param="nazev"/>
+      <with-param name="kat" query-param="kat"/>
+      <with-param name="typ" query-param="typ"/>
+      <with-param name="vyjezdy" query-param="vyjezdy"/>
+      <with-param name="pp" query-param="pp"/>
+      <with-param name="jtsk_x" query-param="jtsk_x"/>
+      <with-param name="jtsk_y" query-param="jtsk_y"/>
+      </call-query>
+   </resource>
+</data>
