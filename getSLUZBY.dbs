@@ -3,7 +3,7 @@
       <property name="carbon_datasource_name">RCS</property>
    </config>
    <query id="query" useConfig="rcs">
-      <sql>SELECT SM.KC_SL_HZS, CSL.NC_SL_HZS, SM.TS_OD, SM.TS_DO, SM.K_OS, TOS.CISLO, ISV_MAIN.SESTAV_JMENO(H.N_HODN, OS.TITUL1, OS.TITUL2, OS.JMENO, OS.PRIJMENI, 2) As Format_Jmeno from ISV_MAIN.SM_VYKAZ SM left outer join ISV_MAIN.C_SL_HZS CSL on CSL.KC_SL_HZS = SM.KC_SL_HZS left outer join ISV_MAIN.H_OS OS on SM.K_OS = OS.K_OS left outer join ISV_SYSTEM.C_HODN H on OS.K_RHODN = H.K_HODN left outer join ISV_MAIN.TELEFON_OS TOS on TOS.K_OS = OS.K_OS where SM.TS_OD &lt; sysdate + 2 AND SM.TS_DO &gt; sysdate AND SM.KC_SL_HZS IS NOT NULL AND CSL.XC_SL_HZS=1 AND (CSL.SCHVALOVANA=0 OR CSL.SCHVALOVANA IS NULL OR SM.KC_SM_VYKAZ_STAV != 1) and SM.KC_SM_VYKAZ = 100 and OS.XH_OS = 1 and KC_ATC in (3, 4) order by SM.KC_SL_HZS, SM.TS_OD</sql>
+      <sql>SELECT SM.KC_SL_HZS, CSL.NC_SL_HZS, SM.TS_OD, SM.TS_DO, SM.K_OS, TOS.CISLO, ISV_MAIN.SESTAV_JMENO(H.N_HODN, OS.TITUL1, OS.TITUL2, OS.JMENO, OS.PRIJMENI, 2) As Format_Jmeno from ISV_MAIN.SM_VYKAZ SM left outer join ISV_MAIN.C_SL_HZS CSL on CSL.KC_SL_HZS = SM.KC_SL_HZS left outer join ISV_MAIN.H_OS OS on SM.K_OS = OS.K_OS left outer join ISV_SYSTEM.C_HODN H on OS.K_RHODN = H.K_HODN left outer join ISV_MAIN.TELEFON_OS TOS on TOS.K_OS = OS.K_OS where SM.TS_OD &lt; sysdate + 2 AND SM.TS_DO &gt; sysdate AND SM.KC_SL_HZS IS NOT NULL AND CSL.XC_SL_HZS=1 AND (CSL.SCHVALOVANA=0 OR CSL.SCHVALOVANA IS NULL OR SM.KC_SM_VYKAZ_STAV != 1) and OS.XH_OS = 1 and KC_ATC in (3, 4) order by SM.KC_SL_HZS, SM.TS_OD</sql>
       <result element="list" rowName="sluzba">
          <element column="KC_SL_HZS" name="KC_SL_HZS" xsdType="number"/>
          <element column="NC_SL_HZS" name="NC_SL_HZS" xsdType="string"/>
