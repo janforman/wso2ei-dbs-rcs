@@ -1,0 +1,27 @@
+<data name="postFIDES" transports="http">
+   <config enableOData="false" id="fides">
+      <property name="carbon_datasource_name">FIDES</property>
+   </config>
+   <query id="query" useConfig="fides">
+      <sql>SELECT * FROM dbo.ScriptPersistentValue</sql>
+      <result element="list" rowName="osoba">
+         <element column="key" name="key" xsdType="string"/>
+         <element column="value" name="value" xsdType="string"/>
+      </result>
+   </query>
+   <query id="post" useConfig="fides">
+      <sql>UPDATE dbo.ScriptPersistentValue SET value = ?</sql>
+      <param name="value" sqlType="STRING"/>
+   </query>
+   <operation name="get">
+      <call-query href="query"/>
+   </operation>
+   <operation name="post">
+      <call-query href="post">
+        <with-param name="value" query-param="value"/>
+      </call-query>
+   </operation>
+   <resource method="GET" path="/">
+      <call-query href="query"/>
+   </resource>
+</data>
