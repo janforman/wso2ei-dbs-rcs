@@ -3,7 +3,7 @@
       <property name="carbon_datasource_name">SPARK</property>
    </config>
    <query id="query" useConfig="spark">
-      <sql>SELECT id,trim(ec) as ec,trim(obec) as obec,trim(okres) as okres,trim(majitel) as majitel,trim(typ) as typ,trim(druh) as druh,trim(vykon) as vykon,mer_odber,wgs84_n,wgs84_e,trim(prijimac_nazev) as prijimac_nazev,trim(prijimac_typ) as prijimac_typ FROM gis.export_sireny WHERE okres_id IN (22,25,26,27,28,29,31) AND funkcni = 't'</sql>
+      <sql>SELECT id,trim(ec) as ec,trim(obec) as obec,trim(okres) as okres,trim(majitel) as majitel,trim(typ) as typ,trim(druh) as druh,trim(vykon) as vykon,mer_odber,wgs84_n,wgs84_e,trim(prijimac_nazev) as prijimac_nazev,trim(prijimac_typ) as prijimac_typ,vystavba,funkcni FROM gis.export_sireny WHERE okres_id IN (22,25,26,27,28,29,31) AND funkcni = 't'</sql>
       <result element="list" rowName="jsvv">
          <element column="id" name="id" xsdType="integer"/>
          <element column="ec" name="ec" xsdType="string"/>
@@ -18,6 +18,8 @@
          <element column="wgs84_e" name="wgs84_e" xsdType="string"/>
          <element column="prijimac_nazev" name="prijimac_nazev" xsdType="string"/>
          <element column="prijimac_typ" name="prijimac_typ" xsdType="string"/>
+         <element column="vystavba" name="vystavba" xsdType="string"/>
+         <element column="funkcni" name="funkcni" xsdType="string"/>
       </result>
    </query>
    <operation name="get">
