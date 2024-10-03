@@ -3,7 +3,7 @@
       <property name="carbon_datasource_name">RCS</property>
    </config>
    <query id="query" useConfig="rcs">
-      <sql>SELECT A.K_OS,B.JMENO,B.PRIJMENI,B.I_OS FROM OS A JOIN H_OS B ON A.K_OS = B.K_OS WHERE E_OS IS NOT NULL AND B.XH_OS = 1  AND A.X_OS = 1 AND B.QH_OS IS NULL AND PRISL_HZS = 1</sql>
+      <sql>SELECT A.K_OS,B.JMENO,B.PRIJMENI,B.I_OS FROM OS A JOIN H_OS B ON A.K_OS = B.K_OS WHERE E_OS IS NOT NULL AND B.XH_OS = 1  AND A.X_OS = 1 AND B.QH_OS IS NULL</sql>
       <result element="list" rowName="osoba">
          <element column="K_OS" name="id" xsdType="number"/>
          <element column="JMENO" name="jmeno" xsdType="string"/>
