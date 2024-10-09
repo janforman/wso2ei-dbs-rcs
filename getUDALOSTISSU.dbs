@@ -3,13 +3,14 @@
       <property name="carbon_datasource_name">RCS</property>
    </config>
    <query id="query" useConfig="rcs">
-      <sql>SELECT a.TS_OHLAS,a.K_U,a.E_U,d.KC_U_TYP,d.KC_U_PODTYP,d.KC_U_TYP_SSU,a.K_PLAN_P,a.POZNAMKA,c.KC_SL_IZS,c.UPRES_SL,e.POC_ZRAN as POC_ZACHR,b.POPIS_ZASAH FROM U a JOIN U_ZOZ b ON a.K_U = b.K_U RIGHT JOIN U_SPOL c ON a.K_U = c.K_U JOIN U_TYP d ON a.K_U = d.K_U LEFT JOIN ( SELECT K_U,SUM( POC_ZRAN ) AS POC_ZRAN FROM ZRAN_OST WHERE KC_DRUH_ZRAN = 1 GROUP BY K_U ) e ON a.K_U = e.K_U WHERE a.TS_OHLAS BETWEEN ADD_MONTHS( TRUNC( SYSDATE, 'MM' ), - 1 ) AND LAST_DAY( ADD_MONTHS( TRUNC( SYSDATE, 'MM' ), - 1 ) ) + 1 AND a.SSU = 1 AND a.E_U &gt; 1</sql>
+      <sql>SELECT a.TS_OHLAS,a.K_U,a.E_U,d.KC_U_TYP,d.KC_U_PODTYP,d.KC_U_TYP_SSU,f.KC_U_PRIZ,a.K_PLAN_P,a.POZNAMKA,c.KC_SL_IZS,c.UPRES_SL,e.POC_ZRAN as POC_ZACHR,b.POPIS_ZASAH FROM U a JOIN U_ZOZ b ON a.K_U = b.K_U RIGHT JOIN U_SPOL c ON a.K_U = c.K_U JOIN U_TYP d ON a.K_U = d.K_U LEFT JOIN U_PRIZ f ON a.K_U = f.K_U LEFT JOIN ( SELECT K_U,SUM( POC_ZRAN ) AS POC_ZRAN FROM ZRAN_OST WHERE KC_DRUH_ZRAN = 1 GROUP BY K_U ) e ON a.K_U = e.K_U WHERE a.TS_OHLAS BETWEEN ADD_MONTHS( TRUNC( SYSDATE, 'MM' ), - 1 ) AND LAST_DAY( ADD_MONTHS( TRUNC( SYSDATE, 'MM' ), - 1 ) ) + 1 AND a.SSU = 1 AND a.E_U &gt; 1</sql>
 
       <result element="list" rowName="ssu">
          <element column="TS_OHLAS" name="TS_OHLAS" xsdType="string"/>
          <element column="E_U" name="E_U" xsdType="string"/>
          <element column="K_U" name="K_U" xsdType="string"/>
          <element column="KC_U_TYP_SSU" name="KC_U_TYP_SSU" xsdType="string"/>
+         <element column="KC_U_PRIZ" name="KC_U_PRIZ" xsdType="string"/>
          <element column="K_PLAN_P" name="K_PLAN_P" xsdType="string"/>
          <element column="KC_SL_IZS" name="KC_SL_IZS" xsdType="string"/>
          <element column="UPRES_SL" name="U_PRES_SL" xsdType="string"/>
